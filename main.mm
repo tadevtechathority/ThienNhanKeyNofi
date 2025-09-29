@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 
 #define UIColorFromHEX(rgbValue) [UIColor \
@@ -6,13 +5,20 @@ colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-
-
 #import "main.h"
-
 #import "SCLAlertView/SCLAlertView.h"
-
 #import "APIKey.h"
+
+#import "imgui.h"
+#import "imconfig.h"
+#import "imgui_internal.h"
+#import "imstb_rectpack.h"
+#import "imstb_textedit.h"
+#import "imstb_truetype.h"
+
+//#import "imgui_impl_metal.h"
+
+#import "zzz.h"
 
 SCLAlertView *alert;
 
@@ -20,11 +26,12 @@ SCLAlertView *alert;
 @implementation NguyenNamFramework
 
 
+PPAPIKey *APIKey = [[PPAPIKey alloc] init];
+
 
 
 static NguyenNamFramework *active;
 
-//-----------------//
 
 + (void)load
 {
@@ -46,7 +53,6 @@ alert = [[SCLAlertView alloc] initWithNewWindow];
 });
 }
 
-
 -(void)start{
 
 alert.shouldDismissOnTapOutside = YES;//Replace with NO if you want the user to force a button in the alert
@@ -62,6 +68,13 @@ alert.cornerRadius = 20.0f;
 
 alert.backgroundViewColor = UIColorFromHEX(0x302d26);
 
+
+ImGui::Text("Key: %s", [[APIK getKey] UTF8String]);
+ImGui::Text("Thời Hạn: %s", [[APIK getKeyExpire] UTF8String]);
+ImGui::Text("UUID: %s", [[APIK getUDID] UTF8String]);
+ImGui::Text("Tên Thiết Bị: %s", [[APIK getDeviceName] UTF8String]);
+ImGui::Text("Phiên Bản iOS: %s", [[APIK getiOSVersion] UTF8String]);
+ImGui::Text("Trạng Thái Jailbreak: %s", [[APIK getJailbreakStatus] UTF8String]);
 
 
 //Button
